@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Studio</title>
+    <style>
+        body{
+            background:#111;
+            color:white;
+            font-family:Arial;
+            margin:0;
+        }
+        h1{
+            text-align:center;
+            color:#00ff88;
+        }
+        #chat{
+            width:95%;
+height:70vh;
+border:1px solid #30363d;
+border-radius:12px;
+padding:15px;
+background:#161b22;
+box-shadow:0 0 15px rgba(0,255,136,0.15);
+        }
+        #box{
+            width:90%;
+            margin:20px auto;
+            display:flex;
+        }
+        input{
+            flex:1;
+            padding:12px;
+            font-size:16px;
+        }
+        button{
+            padding:12px 20px;
+            background:#00aa55;
+            color:white;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🤖 AI Studio</h1>
+
+<div id="chat">
+    <p><b>🤖 Taaha:</b> Hello! I'm Taaha, your smart AI assistant. Ask me anything or press 🖼️ to create an image prompt.</p>
+</div>
+
+<div id="box">
+    <input id="msg" placeholder="Type something...">
+<button onclick="startListening()">🎤</button>
+<button onclick="imageMode()">🖼️</button>
+<button onclick="send()">🚀 Send</button>
+</div>
+
+<script>
+function send(){let text = document.getElementById("msg").value;
+    let chat = document.getElementById("chat");
+
+    if(text.trim() == "") return;
+
+    chat.innerHTML += "<p style='color:#66ccff;'><b>🧑 You:</b> " + text + "</p>";
+    chat.innerHTML += "<p id='thinking' style='color:#00ff88;'><b>🤖 Taaha:</b> Thinking...</p>";
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: text
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("thinking").remove();
+        if (data.reply.startsWith("https://image.pollinations.ai/")) {
+    chat.innerHTML += "<p><b>🤖 Taaha:</b><br><img src='" + data.reply + "' style='max-width:250px;border-radius:10px;'></p>";
+} else {
+    chat.innerHTML += "<p><b>🤖 Taaha:</b> " + data.reply + "</p>";
+}
+let speech = new SpeechSynthesisUtterance(data.reply);
+speech.lang = "en-US";
+window.speechSynthesis.speak(speech);
+        chat.scrollTop = chat.scrollHeight;
+    });
+
+    document.getElementById("msg").value = "";
+}
+
+function startListening() {
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SpeechRecognition) {
+alert("Speech recognition is not supported on this browser.");
+return;
+}
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+recognition.onresult = function(event) {
+document.getElementById("msg").value = event.results[0][0].transcript;
+};
+recognition.start();
+}
+function imageMode() {
+    document.getElementById("msg").value = "Draw ";
+    document.getElementById("msg").focus();
+    document.getElementById("msg").select();
+}
+</script>
+
+</body>
+</html>
