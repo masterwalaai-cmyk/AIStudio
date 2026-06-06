@@ -2,14 +2,13 @@ from flask import Flask, render_template, request
 from duckduckgo_search import DDGS
 import google.genai as genai
 
-app = Flask(
+app = app = Flask(
     __name__,
-    template_folder="/data/data/com.termux/files/home/AIStudio/templates"
+    template_folder="../templates"
 )
 
 genai_client = genai.Client(
-    api_key="YOUR_API_KEY"
-)
+    api_key=""
 
 @app.route("/")
 def home():
