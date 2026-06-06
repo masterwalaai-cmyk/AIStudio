@@ -9,6 +9,7 @@ app = app = Flask(
 
 genai_client = genai.Client(
     api_key=""
+)
 
 @app.route("/")
 def home():
