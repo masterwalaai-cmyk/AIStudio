@@ -8,7 +8,7 @@ app = Flask(
 )
 
 genai_client = genai.Client(
-    api_key="AQ.Ab8RN6KrCfiFqMnA0848mr6NHEhe_ynIMfM04ysfes_pJEUL3Q"
+    api_key="YOUR_API_KEY"
 )
 
 @app.route("/")
