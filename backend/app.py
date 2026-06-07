@@ -12,6 +12,8 @@ genai_client = genai.Client(
     api_key=os.environ["GEMINI_API_KEY"]
 )
 
+chat_history = []
+
 @app.route("/")
 def home():
     return render_template("index.html")
