@@ -44,10 +44,11 @@ def chat():
         return {
             "reply": image_url
         }
+prompt_context = "\n".join(chat_history) + "\nUser: " + message
 
     response = genai_client.models.generate_content(
         model="gemini-2.5-flash",
-        contents="You are Taaha, a smart, friendly, and helpful AI assistant. User: " + message
+        contents="You are Taaha, a smart, friendly, and helpful AI assistant.\n" + prompt_context
     )
 
     return {
