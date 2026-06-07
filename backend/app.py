@@ -23,6 +23,8 @@ def home():
 def chat():
     data = request.json
     message = data["message"]
+    chat_history.append("User: " + message) 
+
     if message.lower().startswith("search "):
         query = message[7:]
         with DDGS() as ddgs:
