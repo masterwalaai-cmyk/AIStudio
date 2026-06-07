@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request
 from duckduckgo_search import DDGS
 import google.genai as genai
+import os
 
-app = app = Flask(
+app = Flask(
     __name__,
     template_folder="../templates"
 )
 
 genai_client = genai.Client(
-    api_key=""
+    api_key=os.environ["GEMINI_API_KEY"]
 )
 
 @app.route("/")
