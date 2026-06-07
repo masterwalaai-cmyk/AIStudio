@@ -45,7 +45,7 @@ def chat():
             "reply": image_url
         }
 prompt_context = "\n".join(chat_history) + "\nUser: " + message
-   print(prompt_context)
+print(prompt_context)
 
     response = genai_client.models.generate_content(
         model="gemini-2.5-flash",
