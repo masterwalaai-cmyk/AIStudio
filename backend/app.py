@@ -86,6 +86,7 @@ def chat():
 
 except Exception as e:
     print(e)
+    
     return {
         "reply": str(e)
     }
