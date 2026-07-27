@@ -75,7 +75,7 @@ def chat():
     """ + "\n" + prompt_context
 
     try:
-    response = genai_client.models.generate_content(
+        response = genai_client.models.generate_content(
         model="gemini-2.5-flash",
         contents=contents
     )
