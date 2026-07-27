@@ -2,3 +2,4 @@ flask
 duckduckgo-search
 google-genai
 gunicorn
+python-dotenv
