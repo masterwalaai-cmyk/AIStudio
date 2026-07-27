@@ -76,8 +76,8 @@ def chat():
 
     try:
         response = genai_client.models.generate_content(
-            model="gemini-2.5-flash",
-         contents=contents
+        model="gemini-2.5-flash",
+        contents=contents
     )
 
     return {
