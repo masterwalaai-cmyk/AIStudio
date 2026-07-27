@@ -74,21 +74,21 @@ def chat():
     Keep answers short and natural.
     """ + "\n" + prompt_context
 
-        try:
-            response = genai_client.models.generate_content(
-                model="gemini-2.5-flash",
-             contents=contents
-            )
+    try:
+    response = genai_client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=contents
+    )
 
-        return {
-            "reply": response.text
-        }
+    return {
+        "reply": response.text
+    }
 
-    except Exception as e:
-        print(e)
-        return {
-            "reply": str(e)
-        }
+except Exception as e:
+    print(e)
+    return {
+        "reply": str(e)
+    }
 
 
 app.run(host="0.0.0.0", port=5000)
